@@ -44,6 +44,183 @@ namespace MissionPlanner
 {
     public partial class MainV2 : Form
     {
+
+
+
+        public class PopupForm : Form
+        {
+            // Labels for user input descriptions
+            private Label lblDetectorSensitivity1;
+            private Label lblDetectorSensitivity2;
+            private Label lblThreshold;
+
+            // TextBoxes for user input (made public)
+            public TextBox txtDetectorSensitivity1;
+            public TextBox txtDetectorSensitivity2;
+            public TextBox txtThreshold;
+
+            // Button to submit the value
+            private Button btnSubmit;
+
+            public PopupForm()
+            {
+                InitializeComponent();
+                this.StartPosition = FormStartPosition.CenterScreen; // Center the form
+            }
+
+            private void InitializeComponent()
+            {
+                // Labels for user input descriptions
+                lblDetectorSensitivity1 = new Label();
+                lblDetectorSensitivity1.Text = "Detector sensitivity 1:";
+                lblDetectorSensitivity1.AutoSize = true; // Allow automatic sizing
+                lblDetectorSensitivity1.Anchor = (AnchorStyles.Left | AnchorStyles.Top); // Anchor to top-left corner
+
+                lblDetectorSensitivity2 = new Label();
+                lblDetectorSensitivity2.Text = "Detector sensitivity 2:";
+                lblDetectorSensitivity2.AutoSize = true;
+                lblDetectorSensitivity2.Anchor = (AnchorStyles.Left | AnchorStyles.Top);
+
+                lblThreshold = new Label();
+                lblThreshold.Text = "Threshold:";
+                lblThreshold.AutoSize = true;
+                lblThreshold.Anchor = (AnchorStyles.Left | AnchorStyles.Top);
+
+                // TextBoxes for user input
+                txtDetectorSensitivity1 = new TextBox();
+                txtDetectorSensitivity1.Dock = DockStyle.Top; // Position at the top of the form
+
+                txtDetectorSensitivity2 = new TextBox();
+                txtDetectorSensitivity2.Dock = DockStyle.Top;
+
+                txtThreshold = new TextBox();
+                txtThreshold.Dock = DockStyle.Top;
+
+                // Arrange controls in a vertical layout (using a TableLayoutPanel)
+                TableLayoutPanel panel = new TableLayoutPanel();
+                panel.Dock = DockStyle.Fill; // Fill the entire form
+                panel.AutoSize = true; // Allow automatic sizing for the panel
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize)); // Labels
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100)); // TextBoxes (flexible space)
+                panel.Controls.Add(lblDetectorSensitivity1, 0, 0);
+                panel.Controls.Add(txtDetectorSensitivity1, 1, 0);
+                panel.Controls.Add(lblDetectorSensitivity2, 0, 1);
+                panel.Controls.Add(txtDetectorSensitivity2, 1, 1);
+                panel.Controls.Add(lblThreshold, 0, 2);
+                panel.Controls.Add(txtThreshold, 1, 2);
+
+                Controls.Add(panel); // Add the panel to the form
+
+                // Initialize the Submit button and add it to the form
+                btnSubmit = new Button();
+                btnSubmit.Text = "OK";
+                btnSubmit.Dock = DockStyle.Bottom; // Position at bottom
+                btnSubmit.Click += BtnSubmit_Click;
+                Controls.Add(btnSubmit);
+
+                // Reduce the form height (adjust as needed)
+                this.ClientSize = new System.Drawing.Size(300, 125); // Example size
+
+                // Other form properties and settings can be configured here
+                this.Text = "Detector Parameters";
+            }
+
+            private void BtnSubmit_Click(object sender, EventArgs e)
+            {
+                // Retrieve user input from TextBoxes
+                string detectorSensitivity1 = txtDetectorSensitivity1.Text;
+                string detectorSensitivity2 = txtDetectorSensitivity2.Text;
+                string threshold = txtThreshold.Text;
+
+                // Close the form and return DialogResult.OK (or handle errors)
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+
+        // Defining user input variables so we can use them for calculation
+
+        float userThreshold;
+        float userDetSense1;
+        float userDetSense2;
+        private System.Windows.Forms.Timer tickFunc;
+
+
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            PopupForm popup = new PopupForm();
+
+            if (popup.ShowDialog() == DialogResult.OK)
+            {
+                // Update user variables with specific user input 
+
+                userThreshold = float.Parse(popup.txtThreshold.Text);
+                userDetSense1 = float.Parse(popup.txtDetectorSensitivity1.Text);
+                userDetSense2 = float.Parse(popup.txtDetectorSensitivity2.Text);
+
+            }
+
+            popup.Dispose();
+
+            tickFunc = new System.Windows.Forms.Timer();
+            tickFunc.Interval = 1;
+            tickFunc.Tick += RadiationDetection;
+            tickFunc.Start();
+
+
+
+        }
+
+        private void MainV2_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void RadiationDetection(object sender, EventArgs e)
+        {
+
+            if (MainV2.comPort != null && MainV2.comPort.MAV != null && MainV2.comPort.MAV.cs != null)
+            {
+                float message = MainV2.comPort.MAV.cs.airspeed;
+                float finalValue = userThreshold * message;
+                toolStripMenuItem2.Text = $"airspeed and threshold: {finalValue}\n" +
+                                                            $"Threshold: {userThreshold}";
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -4914,5 +5091,6 @@ namespace MissionPlanner
                 }
             }
         }
+
     }
 }
