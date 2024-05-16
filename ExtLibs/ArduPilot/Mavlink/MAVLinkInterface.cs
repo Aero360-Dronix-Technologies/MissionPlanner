@@ -4458,6 +4458,9 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
 
             req.target_system = MAV.sysid;
             req.target_component = MAV.compid;
+
+            CustomMessageBox.Show("Naveen"); ///added by naveen
+
             req.shot = (shot == true) ? (byte) 1 : (byte) 0;
 
             if (!doCommand((byte) sysidcurrent, (byte) compidcurrent, MAV_CMD.DO_DIGICAM_CONTROL, 0, 0, 0, 0, 1, 0, 0))
