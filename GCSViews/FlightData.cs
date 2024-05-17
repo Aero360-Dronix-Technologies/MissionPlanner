@@ -32,6 +32,7 @@ using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using TableLayoutPanelCellPosition = System.Windows.Forms.TableLayoutPanelCellPosition;
 using UnauthorizedAccessException = System.UnauthorizedAccessException;
+using static MissionPlanner.Utilities.LTM;
 
 // written by michael oborne
 
@@ -3872,6 +3873,7 @@ namespace MissionPlanner.GCSViews
                             var GMapMarkerOverlapCount = new GMapMarkerOverlapCount(PointLatLng.Empty);
 
                             // age current
+                            /*
                             int camcount = MainV2.comPort.MAV.camerapoints.Count;
                             int a = 0;
                             foreach (var mark in photosoverlay.Markers)
@@ -3897,6 +3899,75 @@ namespace MissionPlanner.GCSViews
 
                                 a++;
                             }
+
+                            */
+                            int camcount = 0;
+
+                            if (MainV2.comPort.MAV.camerapoints != null)
+                            {
+                                camcount = MainV2.comPort.MAV.camerapoints.Count;
+                            }
+
+                            // Ensure the marker is added only once
+                            bool markerAdded = false;
+                            int a = 0;
+                            foreach (var mark in photosoverlay.Markers)
+                            {
+                                if (mark is GMapMarkerPhoto)
+                                {
+                                    if (CameraOverlap)
+                                    {
+                                        var marker = ((GMapMarkerPhoto)mark);
+                                        // Abandon roll higher than 25 degrees
+                                        if (Math.Abs(marker.Roll) < 25)
+                                        {
+                                            GMapMarkerOverlapCount.Add(marker.footprintpoly);
+                                            CustomMessageBox.Show("if-ganesh");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Add the marker only if it hasn't been added before
+                                        if (!markerAdded)
+                                        {
+                                            AddMarkerWithHoverEvent(new PointLatLng(13.0843, 80.2705));
+                                            markerAdded = true; // Set markerAdded to true to indicate that the marker has been added
+                                        }
+                                        //CustomMessageBox.Show("else-ganesh");
+                                    }
+
+                                    if (a < (camcount - 4))
+                                        ((GMapMarkerPhoto)mark).drawfootprint = false;
+                                    else
+                                        ((GMapMarkerPhoto)mark).drawfootprint = true;
+                                }
+                                else
+                                {
+                                    // Add the marker only if it hasn't been added before
+                                    if (!markerAdded)
+                                    {
+                                        AddMarkerWithHoverEvent(new PointLatLng(13.0843, 80.2705));
+                                        markerAdded = true; // Set markerAdded to true to indicate that the marker has been added
+                                    }
+                                    CustomMessageBox.Show("else-ganesh");
+                                }
+
+                                a++;
+                            }
+
+                            // Method to add marker and attach hover events
+                            void AddMarkerWithHoverEvent(PointLatLng position)
+                            {
+                                GMarkerGoogle marker = new GMarkerGoogle(position, GMarkerGoogleType.arrow);
+                                marker.ToolTipText = $"Lat: {position.Lat}, Lng: {position.Lng}";
+                                marker.ToolTipMode = MarkerTooltipMode.Always; // Change the mode to Always
+                                photosoverlay.Markers.Add(marker);
+                                marker.IsVisible = true;
+                            }
+
+
+
+
 
                             if (CameraOverlap)
                             {
