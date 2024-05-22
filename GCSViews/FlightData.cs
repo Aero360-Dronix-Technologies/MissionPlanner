@@ -3930,6 +3930,8 @@ namespace MissionPlanner.GCSViews
                                         // Add the marker only if it hasn't been added before
                                         if (!markerAdded)
                                         {
+                                            //MainV2.comPort.MAV.cs.lat;
+                                            ///MainV2.comPort.MAV.cs.lon;
                                             AddMarkerWithHoverEvent(new PointLatLng(13.0843, 80.2705));
                                             markerAdded = true; // Set markerAdded to true to indicate that the marker has been added
                                         }

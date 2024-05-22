@@ -114,28 +114,6 @@ namespace MissionPlanner
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -254,13 +232,24 @@ namespace MissionPlanner
             {
                 get
                 {
+                    
                     if (File.Exists($"{running_directory}light_connect_icon.png"))
                         return Image.FromFile($"{running_directory}light_connect_icon.png");
                     else
                         return global::MissionPlanner.Properties.Resources.light_connect_icon;
+                    
+
+                    using (ChartPopupForm chartPopup = new ChartPopupForm())
+                    {
+                        if (chartPopup.ShowDialog() == DialogResult.None)
+                        {
+                            chartPopup.ShowDialog();
+                            chartPopup.DialogResult = DialogResult.OK;
+
+                        }
+                    }
                 }
             }
-
             public override Image disconnect
             {
                 get
@@ -395,6 +384,17 @@ namespace MissionPlanner
                         return Image.FromFile($"{running_directory}dark_connect_icon.png");
                     else
                         return global::MissionPlanner.Properties.Resources.dark_connect_icon;
+
+
+
+                    using (ChartPopupForm chartPopup = new ChartPopupForm())
+                    {
+                        if (chartPopup.ShowDialog() == DialogResult.None)
+                        {
+                            chartPopup.ShowDialog();
+                            chartPopup.DialogResult = DialogResult.OK;
+                        }
+                    }
                 }
             }
 
@@ -5011,6 +5011,21 @@ namespace MissionPlanner
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            using (ChartPopupForm chartPopup = new ChartPopupForm())
+            {
+                if (chartPopup.ShowDialog() == DialogResult.None)
+                {
+                    chartPopup.ShowDialog();
+                    chartPopup.DialogResult = DialogResult.OK;
+                }
+
+
+            }
         }
     }
 }

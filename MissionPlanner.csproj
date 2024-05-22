@@ -374,8 +374,12 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DataVisualization.Design" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
     <Reference Include="System.Xml" />
     <Reference Include="Updater, Version=1.0.7056.19890, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>Updater\bin\Release\Updater.exe</HintPath>
@@ -678,6 +682,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Antenna\TrackerGeneric.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\DroneCANSubscriber.cs">
       <SubType>UserControl</SubType>
@@ -792,6 +797,12 @@
     </Compile>
     <Compile Include="Controls\FollowMe.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigADSB.cs">
       <SubType>UserControl</SubType>
@@ -1636,6 +1647,7 @@
     <Compile Include="Utilities\Update.cs" />
     <Compile Include="Utilities\Win32DeviceMgnt.cs" />
     <Compile Include="Utilities\XMLColor.cs" />
+    <Compile Include="View1.cs" />
     <Compile Include="Warnings\WarningControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
