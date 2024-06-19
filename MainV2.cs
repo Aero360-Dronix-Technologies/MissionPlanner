@@ -646,7 +646,7 @@ namespace MissionPlanner
 
         public void updateLayout(object sender, EventArgs e)
         {
-            MenuSimulation.Visible = DisplayConfiguration.displaySimulation;
+            //MenuSimulation.Visible = DisplayConfiguration.displaySimulation;
             //MenuHelp.Visible = DisplayConfiguration.displayHelp;
             MissionPlanner.Controls.BackstageView.BackstageView.Advanced = DisplayConfiguration.isAdvancedMode;
 
@@ -1311,7 +1311,7 @@ namespace MissionPlanner
             MenuFlightData.Image = displayicons.fd;
             MenuFlightPlanner.Image = displayicons.fp;
             MenuInitConfig.Image = displayicons.initsetup;
-            MenuSimulation.Image = displayicons.sim;
+           // MenuSimulation.Image = displayicons.sim;
             MenuConfigTune.Image = displayicons.config_tuning;
             MenuConnect.Image = displayicons.connect;
             //MenuHelp.Image = displayicons.help;
@@ -1320,7 +1320,7 @@ namespace MissionPlanner
             MenuFlightData.ForeColor = ThemeManager.TextColor;
             MenuFlightPlanner.ForeColor = ThemeManager.TextColor;
             MenuInitConfig.ForeColor = ThemeManager.TextColor;
-            MenuSimulation.ForeColor = ThemeManager.TextColor;
+            //MenuSimulation.ForeColor = ThemeManager.TextColor;
             MenuConfigTune.ForeColor = ThemeManager.TextColor;
             MenuConnect.ForeColor = ThemeManager.TextColor;
             //MenuHelp.ForeColor = ThemeManager.TextColor;
@@ -2798,7 +2798,7 @@ namespace MissionPlanner
         /// </summary>
         private void UpdateConnectIcon()
         {
-            if ((DateTime.Now - connectButtonUpdate).Milliseconds > 500)
+            if ((DateTime.Now - connectButtonUpdate).Milliseconds > 1000)
             {
                 //                        Console.WriteLine(DateTime.Now.Millisecond);
                 if (comPort.BaseStream.IsOpen)
@@ -5362,7 +5362,7 @@ namespace MissionPlanner
                         double tt = TotalDist.totaltime;
 
                         double esttime = FlightPlanner.totalDistance;
-                        double esttime2 = 100000000000;
+                        //double esttime2 = 100000000000;
 
                         if (esttime > end)
                         { 

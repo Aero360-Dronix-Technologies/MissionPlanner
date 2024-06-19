@@ -6396,6 +6396,8 @@ namespace MissionPlanner.GCSViews
 
             string doseRate1 = DoseRateUpdater.finalValue1;
 
+            //CustomMessageBox.Show(doseRate1.ToString());
+
 
             //CustomMessageBox.Show("Add marker function is calling");
 
