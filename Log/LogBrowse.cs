@@ -2280,13 +2280,16 @@ main()
 
                                 var drint = drth.DoseRate;
                                 var thrint = drth.Threshold;
+                                
+                                var finaltime = item.time;
+
 
 
                                 if (drint < thrint)
                                 {
                                     var marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(point, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.green_small);
                                     // Optionally, set a tooltip with additional information
-                                    marker.ToolTipText = $"Dose_rate: {drint}";
+                                    marker.ToolTipText = $"Dose rate: {drint} \n Threshold: {thrint} \n Time: {finaltime}";
 
                                     // Add the marker to the map overlay
                                     mapoverlay.Markers.Add(marker);
@@ -2296,7 +2299,7 @@ main()
                                 {
                                     var marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(point, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red_small);
                                     // Optionally, set a tooltip with additional information
-                                    marker.ToolTipText = $"Dose_rate: {drint}";
+                                    marker.ToolTipText = $"Dose rate: {drint} \n Threshold: {thrint} \n Time: {finaltime}";
 
                                     // Add the marker to the map overlay
                                     mapoverlay.Markers.Add(marker);
@@ -2584,6 +2587,8 @@ main()
         {
             public double DoseRate { get; set; }
             public double Threshold { get; set; }
+
+            public double TimeUS { get; set; }
         }
 
         //made changes here Suriya
@@ -2599,6 +2604,7 @@ main()
 
                 int Doserateint = dflog.FindMessageOffset("RDM", "DR");
                 int Thresholdint = dflog.FindMessageOffset("RDM", "THR");
+                int Timeint = dflog.FindMessageOffset("RDM", "TimeUS");
 
                 if (Doserateint == -1 || Thresholdint == -1)
                 {
@@ -2609,11 +2615,13 @@ main()
                 {
                     string doseRateStr = item.items[Doserateint].ToString();
                     string thresholdStr = item.items[Thresholdint].ToString();
+                    string timeStr = item.items[Timeint].ToString();
 
                     DoseRateThreshold drt = new DoseRateThreshold()
                     {
                         DoseRate = double.Parse(doseRateStr, System.Globalization.CultureInfo.InvariantCulture),
-                        Threshold = double.Parse(thresholdStr, System.Globalization.CultureInfo.InvariantCulture)
+                        Threshold = double.Parse(thresholdStr, System.Globalization.CultureInfo.InvariantCulture),
+                        TimeUS = double.Parse(timeStr, System.Globalization.CultureInfo.InvariantCulture)
                     };
 
                     return drt;
