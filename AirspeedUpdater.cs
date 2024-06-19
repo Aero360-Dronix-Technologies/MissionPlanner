@@ -32,7 +32,7 @@ namespace MissionPlanner
 
 
                 //FlightData.AddMarker(); //creating the marker functuon
-               // GCSViews.FlightData.instance.AddMarker();
+                GCSViews.FlightData.instance.AddMarker();
             }
 
             else if (!airspeedUpdateTimer.Enabled)

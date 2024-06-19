@@ -6392,39 +6392,30 @@ namespace MissionPlanner.GCSViews
               double latitude = MainV2.comPort.MAV.cs.lat;
               double longitude = MainV2.comPort.MAV.cs.lng;
 
-             string thresh = DoseRateUpdater.threshold;
+            //string thresh = DoseRateUpdater.threshold;
 
-            string doseRate1 = DoseRateUpdater.finalValue1;
+            //string doseRate1 = DoseRateUpdater.finalValue1;
+            //CustomMessageBox.Show(doseRate1.ToString());
 
 
             //CustomMessageBox.Show("Add marker function is calling");
 
 
-            float doseRate = float.Parse(doseRate1);
-            //float doseRate = 1000;
-            float thresh1 = float.Parse(thresh);
-            //float thresh1 = 100;                 //changew to this for simulatiopn
+            //float doseRate = float.Parse(doseRate1);
+            //float thresh1 = float.Parse(thresh);
+
+            float doseRate = 100;
+            float thresh1 = 1000;                 //changed to this for simulation
 
 
-
-            //float userThreshold = DoseRateUpdater.threshold;
-            //float doseRate = doseRateUpdater.finalValue1;
-            //float doseRate = doseRateUpdater.AccessFinalValue1(doseRateUpdater.finalValue1);
-            //float = doseaRate.finalValue1 THIS TYPE IS NOT ACCESSABLE TILL NOW
-
-            //CustomMessageBox.Show(doseRate.ToString());
             string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
 
-            //CustomMessageBox.Show(doseRate.ToString());
-           // string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
 
 
-              // Create a new PointLatLng object with the given latitude and longitude
-              PointLatLng position = new PointLatLng(latitude, longitude);
-            //PointLatLng position = new PointLatLng(-35.3717999, 149.1608834);
+            // Create a new PointLatLng object with the given latitude and longitude
+            PointLatLng position = new PointLatLng(latitude, longitude);
 
             // Create a new marker at the specified position, using an arrow type
-           // CustomMessageBox.Show(thres.ToString());
             GMarkerGoogle marker;
 
             if (doseRate >= thresh1)
@@ -6445,16 +6436,10 @@ namespace MissionPlanner.GCSViews
               marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
               marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
 
-              // Add the marker to the overlay
-              //photosoverlay.Markers.Add(marker);
-              //routes.Markers.Add(marker);
-
               poioverlay.Markers.Add(marker); // this line responsible for displaying the marker on map continously
                                               // Set the marker to be visible
               marker.IsVisible = true;
-              //gMapControl1.Refresh();
-              //gMapControl1._Overlays.Add.Add(marker);
-
+              
 
           }
 

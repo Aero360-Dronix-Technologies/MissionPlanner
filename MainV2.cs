@@ -2798,7 +2798,7 @@ namespace MissionPlanner
         /// </summary>
         private void UpdateConnectIcon()
         {
-            if ((DateTime.Now - connectButtonUpdate).Milliseconds > 500)
+            if ((DateTime.Now - connectButtonUpdate).Milliseconds > 1000)
             {
                 //                        Console.WriteLine(DateTime.Now.Millisecond);
                 if (comPort.BaseStream.IsOpen)
@@ -5362,7 +5362,7 @@ namespace MissionPlanner
                         double tt = TotalDist.totaltime;
 
                         double esttime = FlightPlanner.totalDistance;
-                        double esttime2 = 100000000000;
+                        //double esttime2 = 100000000000;
 
                         if (esttime > end)
                         { 
