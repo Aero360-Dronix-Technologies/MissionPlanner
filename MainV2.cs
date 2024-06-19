@@ -2189,6 +2189,9 @@ namespace MissionPlanner
 
             sTATUSToolStripMenuItem_Click(sTATUSToolStripMenuItem, EventArgs.Empty);
 
+            //data
+
+            toolStripMenuItem2_Click(toolStripMenuItem2, EventArgs.Empty);
 
         }
 

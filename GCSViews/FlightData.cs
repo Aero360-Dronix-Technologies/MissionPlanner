@@ -6394,13 +6394,16 @@ namespace MissionPlanner.GCSViews
 
              string thresh = DoseRateUpdater.threshold;
 
+            string doseRate1 = DoseRateUpdater.finalValue1;
 
 
-            //float doseRate = DoseRateUpdater.finalValue1;
-              float doseRate = 100;
-             // string thres = DoseRateUpdater.threshold;
-              float thresh1 = float.Parse(thresh);
+            //CustomMessageBox.Show("Add marker function is calling");
 
+
+            float doseRate = float.Parse(doseRate1);
+            //float doseRate = 1000;
+            float thresh1 = float.Parse(thresh);
+            //float thresh1 = 100;                 //changew to this for simulatiopn
 
 
 
@@ -6410,7 +6413,7 @@ namespace MissionPlanner.GCSViews
             //float = doseaRate.finalValue1 THIS TYPE IS NOT ACCESSABLE TILL NOW
 
             //CustomMessageBox.Show(doseRate.ToString());
-              string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
+            string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
 
             //CustomMessageBox.Show(doseRate.ToString());
            // string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
