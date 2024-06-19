@@ -2194,7 +2194,7 @@ main()
                     var mapoverlay = new GMapOverlay("overlay");
                     if (gpscache.Length == 0)
                         gpscache = logdata.GetEnumeratorType(new string[]
-                                {"GPS", "POS", "GPS2", "GPSB", "CMD", "CAM", "TRIG", "SIM", "RALY"})
+                                {"GPS", "POS", "GPS2", "GPSB", "CMD", "CAM", "TRIG", "SIM", "RALY","RDM"})
                             .ToArray();
 
                     DateTime starttime = DateTime.MinValue;
@@ -2265,6 +2265,55 @@ main()
                                 }
                             }
                         }
+
+                        //Made changes here Suriya
+                        else if (item.msgtype == "RDM")
+                        {
+                            var ans = getPointLatLng(item);
+                            var drth = ExtractDoseRateThreshold(item);
+
+                            if (ans != null && ans.Lat != 0 && ans.Lng != 0)
+                            {
+
+                                // Create a simple marker
+                                var point = new GMap.NET.PointLatLng(ans.Lat, ans.Lng);
+
+                                var drint = drth.DoseRate;
+                                var thrint = drth.Threshold;
+
+
+                                if (drint < thrint)
+                                {
+                                    var marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(point, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.green_small);
+                                    // Optionally, set a tooltip with additional information
+                                    marker.ToolTipText = $"Dose_rate: {drint}";
+
+                                    // Add the marker to the map overlay
+                                    mapoverlay.Markers.Add(marker);
+                                }
+
+                                else
+                                {
+                                    var marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(point, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red_small);
+                                    // Optionally, set a tooltip with additional information
+                                    marker.ToolTipText = $"Dose_rate: {drint}";
+
+                                    // Add the marker to the map overlay
+                                    mapoverlay.Markers.Add(marker);
+                                }
+
+
+
+
+                                //var marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(point, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red_small);
+
+
+
+
+                            }
+                        }
+
+
                         else if (item.msgtype == "GPS2" || item.msgtype == "GPS" && item.instance == "1")
                         {
                             var ans = getPointLatLng(item);
@@ -2531,6 +2580,65 @@ main()
                 log.Info("End DrawMap");
             }).ConfigureAwait(false);
         }
+        public class DoseRateThreshold
+        {
+            public double DoseRate { get; set; }
+            public double Threshold { get; set; }
+        }
+
+        //made changes here Suriya
+        // Added a function to get the Dose rate and threshold value from RDM
+
+
+        public DoseRateThreshold ExtractDoseRateThreshold(DFLog.DFItem item)
+        {
+            if (item.msgtype == "RDM")
+            {
+                if (!dflog.logformat.ContainsKey("RDM"))
+                    return null;
+
+                int Doserateint = dflog.FindMessageOffset("RDM", "DR");
+                int Thresholdint = dflog.FindMessageOffset("RDM", "THR");
+
+                if (Doserateint == -1 || Thresholdint == -1)
+                {
+                    return null;
+                }
+
+                try
+                {
+                    string doseRateStr = item.items[Doserateint].ToString();
+                    string thresholdStr = item.items[Thresholdint].ToString();
+
+                    DoseRateThreshold drt = new DoseRateThreshold()
+                    {
+                        DoseRate = double.Parse(doseRateStr, System.Globalization.CultureInfo.InvariantCulture),
+                        Threshold = double.Parse(thresholdStr, System.Globalization.CultureInfo.InvariantCulture)
+                    };
+
+                    return drt;
+                }
+                catch
+                {
+                    // Handle parsing error if necessary
+                }
+
+
+
+
+            }
+
+
+            return null;
+        }
+
+
+
+
+
+
+
+
 
         PointLatLngAlt getPointLatLng(DFLog.DFItem item)
         {
@@ -2578,6 +2686,47 @@ main()
                 {
                 }
             }
+            else if (item.msgtype == "RDM")
+            {
+                //FMT, 146, 45, CMD, QHHHfffffff, TimeUS,CTot,CNum,CId,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt
+                if (!dflog.logformat.ContainsKey("RDM"))
+                    return null;
+
+                int index = dflog.FindMessageOffset("RDM", "LAT");
+                if (index == -1)
+                {
+                    return null;
+                }
+
+                int index2 = dflog.FindMessageOffset("RDM", "LNG");
+                if (index2 == -1)
+                {
+                    return null;
+                }
+
+                try
+                {
+                    string lat = item.items[index].ToString();
+                    string lng = item.items[index2].ToString();
+
+                    PointLatLngAlt pnt = new PointLatLngAlt() { };
+                    pnt.Lat = double.Parse(lat, System.Globalization.CultureInfo.InvariantCulture);
+                    pnt.Lng = double.Parse(lng, System.Globalization.CultureInfo.InvariantCulture);
+                    pnt.Tag = item.lineno.ToString();
+                    if (Math.Abs(pnt.Lat) > 90 || Math.Abs(pnt.Lng) > 180)
+                        return null;
+
+                    return pnt;
+                }
+                catch
+                {
+                }
+
+
+
+            }
+
+
             else if (item.msgtype == "GPS2")
             {
                 if (!dflog.logformat.ContainsKey("GPS2"))
