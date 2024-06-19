@@ -5796,7 +5796,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 fd.Filter = "Mission|*.waypoints;*.txt|Mission JSON|*.mission";
                 //fd.DefaultExt = ".waypoints";
                 fd.InitialDirectory = Settings.Instance["WPFileDirectory"] ?? "";
-                fd.FileName = string.IsNullOrEmpty(wpfilename) ? defaultFileName : wpfilename;
+
+                // made changes here Suriya
+                fd.FileName = defaultFileName;
+                //fd.FileName = string.IsNullOrEmpty(wpfilename) ? defaultFileName : wpfilename;
+
                 DialogResult result = fd.ShowDialog();
                 string file = fd.FileName;
 
