@@ -14,7 +14,8 @@ namespace MissionPlanner
     public class BatteryUpdater
     {
         public static double endurance;
-       
+        public static double endurance2 = 20; // for testing only Suriya no need for actual code
+
 
         private System.Windows.Forms.Timer batteryUpdateTimer;
 
@@ -45,6 +46,7 @@ namespace MissionPlanner
                 double MaxEnduranceMinutes = 40;
 
                 double battery = MainV2.comPort.MAV.cs.battery_voltage;
+                double threshfinally = MainV2.comPort.MAV.cs.customfield0;
                 
                 if (battery >= MinVoltage)
                 {
