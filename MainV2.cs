@@ -2798,13 +2798,14 @@ namespace MissionPlanner
         /// </summary>
         private void UpdateConnectIcon()
         {
-            if ((DateTime.Now - connectButtonUpdate).Milliseconds > 1000)
+            if ((DateTime.Now - connectButtonUpdate).TotalMilliseconds > 1000)
             {
-                //                        Console.WriteLine(DateTime.Now.Millisecond);
+                //Console.WriteLine(DateTime.Now.Millisecond);
                 if (comPort.BaseStream.IsOpen)
                 {
                     if (this.MenuConnect.Image == null || (string) this.MenuConnect.Image.Tag != "Disconnect")
                     {
+                        
                         this.BeginInvoke((MethodInvoker) delegate
                         {
                             this.MenuConnect.Image = displayicons.disconnect;
