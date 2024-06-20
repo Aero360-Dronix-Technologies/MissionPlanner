@@ -2798,7 +2798,11 @@ namespace MissionPlanner
         /// </summary>
         private void UpdateConnectIcon()
         {
+<<<<<<< HEAD
             if ((DateTime.Now - connectButtonUpdate).TotalMilliseconds > 1000)
+=======
+            if ((DateTime.Now - connectButtonUpdate).Milliseconds > 500)
+>>>>>>> ff6b9169d6dae32010cf4aae5643565b9a572ab5
             {
                 //Console.WriteLine(DateTime.Now.Millisecond);
                 if (comPort.BaseStream.IsOpen)
@@ -2811,6 +2815,7 @@ namespace MissionPlanner
                             this.MenuConnect.Image = displayicons.disconnect;
                             this.MenuConnect.Image.Tag = "Disconnect";
                             this.MenuConnect.Text = Strings.DISCONNECTc;
+                            
                             _connectionControl.IsConnected(true);
                         });
                     }
@@ -2824,6 +2829,7 @@ namespace MissionPlanner
                             this.MenuConnect.Image = displayicons.connect;
                             this.MenuConnect.Image.Tag = "Connect";
                             this.MenuConnect.Text = Strings.CONNECTc;
+                            
                             _connectionControl.IsConnected(false);
                             if (_connectionStats != null)
                             {
@@ -5359,6 +5365,7 @@ namespace MissionPlanner
                     if (menuItem.Text == "START")
                     {
                         double end = (BatteryUpdater.endurance) * 60;
+                        double end2 = (BatteryUpdater.endurance2) * 60; // for testing only Suriya, no need for actual code
 
                         double tt = TotalDist.totaltime;
 

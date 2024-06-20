@@ -3540,6 +3540,9 @@ namespace MissionPlanner
                         }
                         break;
 
+
+                        // Check here Suriya
+
                     case (uint)MAVLink.MAVLINK_MSG_ID.NAMED_VALUE_FLOAT:
 
                         {

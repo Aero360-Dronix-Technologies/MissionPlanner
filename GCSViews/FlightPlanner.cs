@@ -601,6 +601,9 @@ namespace MissionPlanner.GCSViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+
+        // made changes below Suriya
         public void BUT_read_Click(object sender, EventArgs e)
         {
             if (Commands.Rows.Count > 0)
@@ -626,6 +629,9 @@ namespace MissionPlanner.GCSViews
             };
 
             frmProgressReporter.DoWork += getWPs;
+
+            
+
             frmProgressReporter.UpdateProgressAndStatus(-1, "Receiving WP's");
 
             ThemeManager.ApplyThemeTo(frmProgressReporter);
@@ -633,6 +639,11 @@ namespace MissionPlanner.GCSViews
             frmProgressReporter.RunBackgroundOperationAsync();
 
             frmProgressReporter.Dispose();
+
+            // made changes below Suriya
+            var listtocheck = GetCommandList();
+            totalDistance = TotalDist.CalculateTotalDistance(listtocheck);
+
         }
 
         /// <summary>
@@ -640,6 +651,9 @@ namespace MissionPlanner.GCSViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+
+        // check this code Suriya
         public void BUT_write_Click(object sender, EventArgs e)
         {
             if ((altmode)CMB_altmode.SelectedValue == altmode.Absolute)
@@ -712,6 +726,11 @@ namespace MissionPlanner.GCSViews
             };
 
             frmProgressReporter.DoWork += saveWPs;
+
+            // made changes below Suriya
+            var listtocheck = GetCommandList();
+            totalDistance = TotalDist.CalculateTotalDistance(listtocheck);
+
 
             frmProgressReporter.UpdateProgressAndStatus(-1, "Sending WP's");
 
@@ -1009,10 +1028,7 @@ namespace MissionPlanner.GCSViews
                 // Sorry the variable totalDistance actually returns estimated time in seconds
 
                 totalDistance = TotalDist.CalculateTotalDistance(cmds);
-                //Console.WriteLine($"Total Distance: {totalDistance / 1000.0} km");
-
-                //MessageBox.Show($"Total time: {totalDistance / 1} seconds", "Total Time", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                
                 // made changes here Suriya
                 var content = cmds;
 
@@ -5812,6 +5828,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         if (file.EndsWith(".mission"))
                         {
                             var list = GetCommandList();
+
+
+                            //test code here Suriya
+
+
+
+
+
+                            //test code above
+
+
+
                             Locationwp home = new Locationwp();
                             try
                             {

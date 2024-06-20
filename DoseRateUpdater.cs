@@ -344,6 +344,7 @@ namespace MissionPlanner
             if (MainV2.comPort != null && MainV2.comPort.MAV != null && MainV2.comPort.MAV.cs != null)
             {
                 string message = MainV2.comPort.MAV.cs.message;
+                double finaldose = 0;
 
                 toolStripMenuItem.AutoSize = false;
                 toolStripMenuItem.Width = 70; // Adjust the width as needed
