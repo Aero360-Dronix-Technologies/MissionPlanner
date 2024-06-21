@@ -47,6 +47,14 @@ namespace MissionPlanner
         public static int ratesensorsbackup;
         public static int ratercbackup;
 
+        // Added Doserate and threshold here Suriya
+        public float dose_rate { get; set; }
+        public float threshold { get; set; }
+
+        public float det_sen1 { get; set; }
+
+        public float det_sen2 { get; set; }
+
         public static int KIndexstatic = -1;
         private float _airspeed;
 
@@ -3557,6 +3565,31 @@ namespace MissionPlanner
                             string name = "MAV_" + mav_value_name.ToUpper();
 
                             float value = named_float.value;
+
+                            // made changes here Suriya
+
+                            if (name == "MAV_DOSE_RATE")
+                            {
+                                dose_rate = value;
+                            }
+
+
+                            if (name == "MAV_THRESHOLD")
+                            {
+                                threshold = value;
+                            }
+
+                            if (name == "MAV_DET_SEN1")
+                            {
+                                det_sen1 = value;
+                            }
+
+                            if (name == "MAV_DET_SEN2")
+                            {
+                                det_sen2 = value;
+                            }
+
+
                             var field = custom_field_names.FirstOrDefault(x => x.Value == name).Key;
 
                             //todo: if field is null then check if we have a free customfield and add the named_value 
