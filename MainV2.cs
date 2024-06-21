@@ -5411,12 +5411,12 @@ namespace MissionPlanner
                                     string currentTime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
                                     double currentLatitude = MainV2.comPort.MAV.cs.lat;
                                     double currentLongitude = MainV2.comPort.MAV.cs.lng;
-                                    string doseRate = DoseRateUpdater.finalValue1;
-                                    string threshold = DoseRateUpdater.threshold;
-                                    string ds1 = DoseRateUpdater.detectorSensitivity1;
-                                    string ds2 = DoseRateUpdater.detectorSensitivity2;
+                                    double doseRate = MainV2.comPort.MAV.cs.dose_rate;
+                                    double threshold = MainV2.comPort.MAV.cs.threshold;
+                                    double ds1 = MainV2.comPort.MAV.cs.det_sen1;
+                                    double ds2 = MainV2.comPort.MAV.cs.det_sen2;
 
-                                    string csvLine = $"{currentTime},{currentLatitude},{currentLongitude},{doseRate},{threshold},{ds1},{ds2}\n";
+                                    string csvLine = $"{currentTime},{currentLatitude},{currentLongitude},{doseRate.ToString("0.00")},{threshold},{ds1},{ds2}\n";
                                     File.AppendAllText(timestampFilePath, csvLine);
                                 }
                                 catch (Exception ex)

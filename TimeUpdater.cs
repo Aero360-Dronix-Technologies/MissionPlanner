@@ -33,6 +33,7 @@ namespace MissionPlanner
         {
             toolStripMenuItem.Text = "Time: " + "\n" + DateTime.Now.ToString("hh:mm:ss"); // Update menu text
             //MissionPlanner.GCSViews.FlightData.instance.AddMarker();
+            //toolStripMenuItem.Text = MainV2.comPort.MAV.cs.dose_rate.ToString("0.00"); // For testing purposes Suriya
         }
     }
 

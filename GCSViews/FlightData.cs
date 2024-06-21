@@ -6387,82 +6387,47 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-          public void AddMarker()
-          {
-              double latitude = MainV2.comPort.MAV.cs.lat;
-              double longitude = MainV2.comPort.MAV.cs.lng;
+        public void AddMarker()
+        {
 
-             string thresh = DoseRateUpdater.threshold;
+            double latitude = MainV2.comPort.MAV.cs.lat;
+            double longitude = MainV2.comPort.MAV.cs.lng;
 
-            string doseRate1 = DoseRateUpdater.finalValue1;
+            double doseRate = MainV2.comPort.MAV.cs.dose_rate;
 
-            //CustomMessageBox.Show(doseRate1.ToString());
+            double threshold = MainV2.comPort.MAV.cs.threshold;
 
-
-            //CustomMessageBox.Show("Add marker function is calling");
-
-
-            float doseRate = float.Parse(doseRate1);
-            //float doseRate = 1000;
-            float thresh1 = float.Parse(thresh);
-            //float thresh1 = 100;                 //changew to this for simulatiopn
-
-
-
-            //float userThreshold = DoseRateUpdater.threshold;
-            //float doseRate = doseRateUpdater.finalValue1;
-            //float doseRate = doseRateUpdater.AccessFinalValue1(doseRateUpdater.finalValue1);
-            //float = doseaRate.finalValue1 THIS TYPE IS NOT ACCESSABLE TILL NOW
-
-            //CustomMessageBox.Show(doseRate.ToString());
             string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
 
-            //CustomMessageBox.Show(doseRate.ToString());
-           // string time = DateTime.Now.ToString("HH:mm:ss"); // Current time in HH:mm:ss format
-
-
-              // Create a new PointLatLng object with the given latitude and longitude
-              PointLatLng position = new PointLatLng(latitude, longitude);
-            //PointLatLng position = new PointLatLng(-35.3717999, 149.1608834);
+            // Create a new PointLatLng object with the given latitude and longitude
+            PointLatLng position = new PointLatLng(latitude, longitude);
 
             // Create a new marker at the specified position, using an arrow type
-           // CustomMessageBox.Show(thres.ToString());
             GMarkerGoogle marker;
 
-            if (doseRate >= thresh1)
-              {
-                   marker = new GMarkerGoogle(position, GMarkerGoogleType.red_small);
-              }
-              else
-              {
-                   marker = new GMarkerGoogle(position, GMarkerGoogleType.green_small);
-              }
+            if (doseRate >= threshold)
+            {
+                marker = new GMarkerGoogle(position, GMarkerGoogleType.red_small);
+            }
+            else
+            {
+                marker = new GMarkerGoogle(position, GMarkerGoogleType.green_small);
+            }
+
+            // Set the tooltip text to display the latitude and longitude
+            marker.ToolTipText = $"Lat: {position.Lat}, Lng: {position.Lng}\nDose Rate: {doseRate}\nTime: {time}";
 
 
-              // Set the tooltip text to display the latitude and longitude
-              marker.ToolTipText = $"Lat: {position.Lat}, Lng: {position.Lng}\nDose Rate: {doseRate}\nTime: {time}";
+            // Set the tooltip mode to always display the tooltip
+            marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+            marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
 
+            // Add the marker to the overlay
 
-              // Set the tooltip mode to always display the tooltip
-              marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-              marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
-
-              // Add the marker to the overlay
-              //photosoverlay.Markers.Add(marker);
-              //routes.Markers.Add(marker);
-
-              poioverlay.Markers.Add(marker); // this line responsible for displaying the marker on map continously
-                                              // Set the marker to be visible
-              marker.IsVisible = true;
-              //gMapControl1.Refresh();
-              //gMapControl1._Overlays.Add.Add(marker);
-
-
-          }
-
-
-
-
+            poioverlay.Markers.Add(marker); // this line responsible for displaying the marker on map continously
+            // Set the marker to be visible
+            marker.IsVisible = true;
+        }
 
     }
 }
