@@ -303,6 +303,7 @@
             // 
             resources.ApplyResources(this.BUT_Accept, "BUT_Accept");
             this.BUT_Accept.Name = "BUT_Accept";
+            this.BUT_Accept.TextColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
             this.BUT_Accept.UseVisualStyleBackColor = true;
             this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
             // 

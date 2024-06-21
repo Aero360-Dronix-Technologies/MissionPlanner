@@ -355,11 +355,13 @@ namespace MissionPlanner.SimpleGrid
 
             lbl_distance.Text = wppoly.Distance.ToString("0.##") + " km";
 
-
-            lbl_strips.Text = ((int)(strips / 2)).ToString();
+            decimal flighttime = ((decimal)wppoly.Distance * 1000 / NUM_UpDownFlySpeed.Value) / 60;
+            lbl_strips.Text = flighttime.ToString("0.0") + " minutes";
+           
             lbl_distbetweenlines.Text = NUM_Distance.Value.ToString("0.##") + " m";
 
                 map.HoldInvalidation = false;
+
 
             map.ZoomAndCenterMarkers("polygons");
 
@@ -416,6 +418,7 @@ namespace MissionPlanner.SimpleGrid
 
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
+            //CustomMessageBox.Show(NUM_UpDownFlySpeed.Value.ToString());
             if (grid != null && grid.Count > 0)
             {
                 MainV2.instance.FlightPlanner.quickadd = true;
