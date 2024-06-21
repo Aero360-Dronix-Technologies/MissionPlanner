@@ -55,6 +55,13 @@ namespace MissionPlanner
 
         public float det_sen2 { get; set; }
 
+        public float rdmstatus { get; set; }
+
+
+
+
+
+
         public static int KIndexstatic = -1;
         private float _airspeed;
 
@@ -3587,6 +3594,11 @@ namespace MissionPlanner
                             if (name == "MAV_DET_SEN2")
                             {
                                 det_sen2 = value;
+                            }
+
+                            if (name == "MAV_RDMSTATUS")
+                            {
+                                rdmstatus = value;
                             }
 
 

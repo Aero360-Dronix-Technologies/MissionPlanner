@@ -29,7 +29,7 @@ namespace MissionPlanner
             {
                 statusTimer.Start();
             }
-
+            /*
             if (checkTimer == null)
             {
                 checkTimer = new System.Windows.Forms.Timer();
@@ -41,6 +41,7 @@ namespace MissionPlanner
             {
                 checkTimer.Start();
             }
+            */
         }
 
         private void findstatus(object sender, EventArgs e, ToolStripMenuItem toolStripMenuItem)
@@ -48,27 +49,43 @@ namespace MissionPlanner
             if (MainV2.comPort != null && MainV2.comPort.MAV != null && MainV2.comPort.MAV.cs != null)
             {
                 string statusMessage = MainV2.comPort.MAV.cs.message;
+                float rdmstatus = MainV2.comPort.MAV.cs.rdmstatus;
 
+                if (rdmstatus == 1)
+                {
+                    toolStripMenuItem.Text = "Connected";
+                    toolStripMenuItem.ForeColor = Color.Green;
+                }
+                else
+                {
+                    toolStripMenuItem.Text = "Disconnected";
+                    toolStripMenuItem.ForeColor = Color.Red;
+                }
+                
+                /*
                 if (string.IsNullOrWhiteSpace(statusMessage))
                 {
                     patternMatched = false;
                 }
                 else
                 {
-                    string pattern1 = @"DR:\s\d+(\.\d+)?,\sThr:\s\d+(\.\d+)?,\sDS1:\s\d+(\.\d+)?,\sDS2:\s*\d+(\.\d+)?";
+                    string pattern1 = @"RDM Disconnected";
                     Match match1 = Regex.Match(statusMessage, pattern1);
 
                     if (match1.Success)
                     {
-                        toolStripMenuItem.Text = "Connected";
-                        toolStripMenuItem.ForeColor = Color.Green;
+                        toolStripMenuItem.Text = "Disconnected";
+                        toolStripMenuItem.ForeColor = Color.Red;
                         patternMatched = true;
                     }
                     else
                     {
+
+                        toolStripMenuItem.Text = "Connected";
+                        toolStripMenuItem.ForeColor = Color.Green;
                         patternMatched = false;
                     }
-                }
+                } */
             }
             else
             {
@@ -80,8 +97,8 @@ namespace MissionPlanner
         {
             if (!patternMatched)
             {
-                toolStripMenuItem.Text = "Disconnected";
-                toolStripMenuItem.ForeColor = Color.Red;
+                toolStripMenuItem.Text = "Connected";
+                toolStripMenuItem.ForeColor = Color.Green;
             }
             patternMatched = false; // Reset for the next interval
         }
