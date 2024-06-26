@@ -39,17 +39,7 @@ namespace MissionPlanner
                 double finalthreshold = MainV2.comPort.MAV.cs.threshold;
                 float rdmstatus = MainV2.comPort.MAV.cs.rdmstatus;
 
-                if (rdmstatus == 1)
-                {
-                    toolStripMenuItem.AutoSize = false;
-                    toolStripMenuItem.Width = 70; // Adjust the width as needed
-                    toolStripMenuItem.TextAlign = ContentAlignment.MiddleCenter;
-
-                    toolStripMenuItem.Text = $"{finaldose.ToString("0.00")} \n nsv/h";
-                    toolStripMenuItem.ForeColor = finaldose >= finalthreshold ? Color.Red : Color.Black;
-                }
-
-                else
+                if (rdmstatus == 0)
                 {
                     toolStripMenuItem.AutoSize = false;
                     toolStripMenuItem.Width = 70; // Adjust the width as needed
@@ -57,6 +47,19 @@ namespace MissionPlanner
 
                     toolStripMenuItem.Text = "No data";
                     toolStripMenuItem.ForeColor = Color.Black;
+
+
+                }
+
+                else
+                {
+                    toolStripMenuItem.AutoSize = false;
+                    toolStripMenuItem.Width = 70; // Adjust the width as needed
+                    toolStripMenuItem.TextAlign = ContentAlignment.MiddleCenter;
+                    
+                    toolStripMenuItem.Text = $"{finaldose.ToString("0.00")} \n nsv/h";
+                    toolStripMenuItem.ForeColor = finaldose >= finalthreshold ? Color.Red : Color.Black;
+
 
                 }
                 

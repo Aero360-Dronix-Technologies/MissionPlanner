@@ -126,7 +126,7 @@ namespace MissionPlanner.Utilities
                         MainV2.instance.switchicons(new MainV2.highcontrastmenuicons());
                         break;
                     default:                                                            
-                        MainV2.instance.switchicons(new MainV2.highcontrastmenuicons());     //Fall back to BurntKermit
+                        MainV2.instance.switchicons(new MainV2.burntkermitmenuicons());     //Fall back to BurntKermit
                         break;
                 }
             }
@@ -197,6 +197,8 @@ namespace MissionPlanner.Utilities
 
         public static List<String> ThemeNames;
 
+        public static List<String> ThemeNames2;
+
 
 
         public static void GetThemesList()
@@ -218,6 +220,44 @@ namespace MissionPlanner.Utilities
             {
                 //Get default themes from program directory (system themes are read only)
                 var themeFiles = Directory.EnumerateFiles(runningDir, "*.mpsystheme");
+
+                // just checking Suriya
+
+
+                string filePath = @"C:\Users\USER\source\repos\themelist1.txt";
+
+                try
+                {
+
+
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        writer.WriteLine("Latitude\tLongitude\tAltitude\tID");
+                        foreach (string cmd in themeFiles)
+                        {
+                            //List<String> ThemeNames2;
+                            ThemeNames2.Add(Path.GetFileName(cmd));
+                            foreach (string cmd2 in ThemeNames2)
+                            {
+                                writer.WriteLine(cmd2);
+                            }
+                            
+                        }
+                    }
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while saving the file: " + ex.Message);
+                }
+
+
+
+
+
+
                 foreach (string currentFile in themeFiles)
                 {
                     ThemeNames.Add(Path.GetFileName(currentFile));
@@ -232,6 +272,46 @@ namespace MissionPlanner.Utilities
             {
                 //Get theme files from user directory (user themes can be overwritten)
                 var themeFiles = Directory.EnumerateFiles(userDir, "*.mpusertheme");
+
+                // checking here Suriya
+
+
+                string filePath = @"C:\Users\USER\source\repos\themelist2.txt";
+
+                try
+                {
+
+
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        writer.WriteLine("Latitude\tLongitude\tAltitude\tID");
+                        foreach (string cmd in themeFiles)
+                        {
+                            //List<String> ThemeNames2;
+                            ThemeNames2.Add(Path.GetFileName(cmd));
+                            foreach (string cmd2 in ThemeNames2)
+                            {
+                                writer.WriteLine(cmd2);
+                            }
+
+                        }
+                    }
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while saving the file: " + ex.Message);
+                }
+
+
+
+
+
+
+
+
                 foreach (string currentFile in themeFiles)
                 {
                     ThemeNames.Add(Path.GetFileName(currentFile));

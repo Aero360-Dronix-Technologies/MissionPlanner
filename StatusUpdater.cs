@@ -51,41 +51,17 @@ namespace MissionPlanner
                 string statusMessage = MainV2.comPort.MAV.cs.message;
                 float rdmstatus = MainV2.comPort.MAV.cs.rdmstatus;
 
-                if (rdmstatus == 1)
-                {
-                    toolStripMenuItem.Text = "Connected";
-                    toolStripMenuItem.ForeColor = Color.Green;
-                }
-                else
+                if (rdmstatus == 0)
                 {
                     toolStripMenuItem.Text = "Disconnected";
                     toolStripMenuItem.ForeColor = Color.Red;
                 }
-                
-                /*
-                if (string.IsNullOrWhiteSpace(statusMessage))
-                {
-                    patternMatched = false;
-                }
                 else
                 {
-                    string pattern1 = @"RDM Disconnected";
-                    Match match1 = Regex.Match(statusMessage, pattern1);
-
-                    if (match1.Success)
-                    {
-                        toolStripMenuItem.Text = "Disconnected";
-                        toolStripMenuItem.ForeColor = Color.Red;
-                        patternMatched = true;
-                    }
-                    else
-                    {
-
-                        toolStripMenuItem.Text = "Connected";
-                        toolStripMenuItem.ForeColor = Color.Green;
-                        patternMatched = false;
-                    }
-                } */
+                    toolStripMenuItem.Text = "Connected";
+                    toolStripMenuItem.ForeColor = Color.Green;
+                }
+                
             }
             else
             {
