@@ -46,15 +46,15 @@ namespace MissionPlanner
                 double MaxEnduranceMinutes = 40;
 
                 double battery = MainV2.comPort.MAV.cs.battery_voltage;
-                double threshfinally = MainV2.comPort.MAV.cs.customfield0;
+                //double threshfinally = MainV2.comPort.MAV.cs.customfield0;
                 
                 if (battery >= MinVoltage)
                 {
-                    endurance = (battery - MinVoltage) / (MaxVoltage - MinVoltage) * MaxEnduranceMinutes;
+                    endurance = ((battery - MinVoltage) / (MaxVoltage - MinVoltage)) * MaxEnduranceMinutes;
                     endurance = Math.Round(endurance, 1); // Round endurance to 1 decimal place
                     toolStripMenuItem.Text = "Battery: " + "\n" + endurance + "min";
 
-                    if (endurance > 23.5)
+                    if (battery > 23.5)
                     {
                         toolStripMenuItem.ForeColor = Color.Green; // Above 20% - Green
                     }
